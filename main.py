@@ -29,6 +29,7 @@ class Client(commands.Bot):
         self.add_view(BugReportButtons(self))
         self.add_view(BugActionButtons(self))
         os.system('cls' if os.name == 'nt' else 'clear')
+        print("")
         await self.tree.sync()
         #await client.change_presence(activity = discord.CustomActivity(name=config["custom_app_status"]))
 
