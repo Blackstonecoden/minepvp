@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-import json
+from json import load
 import random
 
 with open("config.json", 'r', encoding='utf-8') as file:
-    config = json.load(file)
+    config = load(file)
 
 class temp_channel_listener(commands.Cog):
     def __init__(self, client: commands.Bot):
