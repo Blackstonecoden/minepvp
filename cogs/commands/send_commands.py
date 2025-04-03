@@ -29,7 +29,7 @@ class send_commands(commands.Cog):
             > **How is this server moderated?**  
             > Breaking the rules may result in a timeout or a warning.\n> Severe violations can lead to a ban. \n> Ignorance of the rules does not exempt you from consequences.  
 
-            > **We follow Discord"s Terms**  
+            > **We follow Discord's Terms**  
             > - [Discord Guidelines](https://discordapp.com/guidelines)  
             > - [Discord Terms](https://discordapp.com/terms)  
             """,
@@ -59,7 +59,7 @@ class send_commands(commands.Cog):
         chat_rules_embed = discord.Embed(
             title=f"{config["emojis"]["message_circle"]} CHAT RULES",
             description=f"""
-            > Just because something isn"t listed here doesn"t mean you can"t be banned for it. Use common sense and stay out of trouble."
+            > Just because something isn't listed here doesn't mean you can't be banned for it. Use common sense and stay out of trouble."
 
             > **Summary of the chat rules**  
             > - No swearing  

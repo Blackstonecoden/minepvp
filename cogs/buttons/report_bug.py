@@ -94,7 +94,7 @@ class BugAcceptModal(ui.Modal):
             embeds.append(embed)
         await interaction.message.edit(embeds=embeds, view=None)
 
-        channel: discord.ForumChannel = interaction.guild.get_channel(config["channels"]["bugs"])
+        channel: discord.ForumChannel = interaction.guild.get_channel(config["channels"]["bug_forum"])
         tag = channel.get_tag(config["bug_forum_tags"][self.bug_tag.value]["tag_id"])
         thread = await channel.create_thread(name=self.bug_title.value, applied_tags=[tag],
                               content=f"""**Bug Information**\n> - Location: `{tag.name}`\n> - Title `{self.bug_title.value}`\n> - User: <@{content["reported_by"]}>\n> - Reported at: <t:{content["created_at"]}:D>\n\n**Bug Description**\n```{content["content"]["description"]}```\n\n**Reproduction**\n```{content["content"]["description"]}```""")
