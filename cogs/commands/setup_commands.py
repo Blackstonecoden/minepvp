@@ -8,6 +8,7 @@ from cogs.buttons.report_bug import BugReportButtons
 with open("config.json", 'r', encoding='utf-8') as file:
     config = load(file)
 
+
 class setup_commands(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
