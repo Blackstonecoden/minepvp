@@ -27,6 +27,7 @@ class setup_commands(commands.Cog):
                             > **BUG REPORT INFORMATION**
                             > - Your bug will be reviewed by the team
                             > - Report bugs for a better gameplay experience
+                            > - Do NOT use this feature to spam, otherwise, there will be consequences.
                             
                             > **HOW TO SUBMIT A BUG REPORT?**
                             > - Click the button below to submit a bug report

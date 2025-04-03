@@ -71,16 +71,21 @@ class BugActionButtons(discord.ui.View):
         for embed in interaction.message.embeds:
             embed.color = 0xda373c
             embeds.append(embed)
-        await interaction.message.edit(embeds=embeds, view=None)
+        await interaction.message.edit(embeds=embeds, view=None, attachments=[])
 
 
 class BugAcceptModal(ui.Modal):
     def __init__(self, client: commands.Bot):
         super().__init__(title="Bug Report")
         self.client = client
-    bug_title = discord.ui.TextInput(label="Title", placeholder="Give the bug a proper title.", min_length=2, max_length=50, style=discord.TextStyle.short)
-    bug_tag = discord.ui.TextInput(label="Tags", placeholder="Assign a tag to the bug.", max_length=25, style=discord.TextStyle.short)
+    bug_title = discord.ui.TextInput(label="Title", placeholder="Give the bug a proper title.", max_length=50, style=discord.TextStyle.short)
+    bug_tag = discord.ui.TextInput(label="Tag", placeholder="Assign a tag to the bug.", max_length=25, style=discord.TextStyle.short)
     async def on_submit(self, interaction: discord.Interaction):
+        bug_tag_id = config["bug_forum_tags"].get(self.bug_tag.value.lower(), {}).get("tag_id")
+        if not bug_tag_id: 
+            await interaction.response.send_message(f"❌ Invalid tag: `{self.bug_tag.value}`.", ephemeral=True)
+            return
+        
         await interaction.response.defer()
 
         content = self.client.bug_reports[str(interaction.message.id)]
@@ -92,10 +97,11 @@ class BugAcceptModal(ui.Modal):
         for embed in interaction.message.embeds:
             embed.color = 0x248046
             embeds.append(embed)
-        await interaction.message.edit(embeds=embeds, view=None)
+        await interaction.message.edit(embeds=embeds, view=None, attachments=[])
+
 
         channel: discord.ForumChannel = interaction.guild.get_channel(config["channels"]["bug_forum"])
-        tag = channel.get_tag(config["bug_forum_tags"][self.bug_tag.value]["tag_id"])
+        tag = channel.get_tag(bug_tag_id)
         thread = await channel.create_thread(name=self.bug_title.value, applied_tags=[tag],
                               content=f"""**Bug Information**\n> - Location: `{tag.name}`\n> - Title `{self.bug_title.value}`\n> - User: <@{content["reported_by"]}>\n> - Reported at: <t:{content["created_at"]}:D>\n\n**Bug Description**\n```{content["content"]["description"]}```\n\n**Reproduction**\n```{content["content"]["description"]}```""")
         await thread.message.pin()
