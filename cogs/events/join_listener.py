@@ -6,7 +6,7 @@ with open("config.json", 'r', encoding='utf-8') as file:
     config = load(file)
 
 
-class join_role(commands.Cog):
+class join_listener(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
 
@@ -18,4 +18,4 @@ class join_role(commands.Cog):
             
 
 async def setup(client:commands.Bot) -> None:
-    await client.add_cog(join_role(client))
+    await client.add_cog(join_listener(client))
