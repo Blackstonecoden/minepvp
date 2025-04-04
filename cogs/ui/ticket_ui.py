@@ -51,7 +51,7 @@ class TicketMenu(discord.ui.Select):
         line = discord.File("images/line.png")
         embed = discord.Embed(
             description=f"""
-            ## Ticket successfully created
+            ## Ticket Successfully Created
 
             You've successfully created a ticket with the reason `{config["ticket_types"][value]["short_name"]}`.
             Go to the channel <#{ticket_channel.id}> to start your conversation with the team.
