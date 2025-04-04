@@ -108,5 +108,30 @@ class send_commands(commands.Cog):
 
         await interaction.channel.send(embeds=[top_embed, embed], files=[top_image, line])
 
+    @send_command.command(name="application", description="Send the application embed in this channel")
+    async def send_rules(self, interaction: discord.Interaction):
+        await interaction.response.send_message("✅", ephemeral=True)
+        top_image = discord.File("images/banners/application.png")
+        top_embed = discord.Embed(color=0x6d6f78)
+        top_embed.set_image(url="attachment://application.png")
+
+        line = discord.File("images/line.png")
+        embed = discord.Embed(
+            title=f"{config["emojis"]["file_text"]} APPLICATION",
+            description=f"""
+            > **Information**
+            > Are you passionate about Minecraft and would like to join the MinePvP staff team? We're looking for dedicated people to join our staff team! If you're ready, check out the **[MinePvP Staff Application](https://docs.google.com/forms/d/1cQ6OhTxPGdB_-ld71pKk9XsFhxkg4go29I0tnti7li4/edit)** to apply.
+
+            > **Requirements**
+            > - Must be at least 15 years old
+            > - Understanding of the MinePvP community
+            > - Basic understanding of moderation
+            > - A genuine interest in helping the community
+            """,
+            color=0x6d6f78)
+        embed.set_image(url="attachment://line.png")
+
+        await interaction.channel.send(embeds=[top_embed, embed], files=[top_image, line])
+
 async def setup(client:commands.Bot) -> None:
     await client.add_cog(send_commands(client))

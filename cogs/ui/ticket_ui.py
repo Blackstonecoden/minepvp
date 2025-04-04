@@ -32,17 +32,11 @@ class TicketMenu(discord.ui.Select):
         value = self.values[0]
         if config["ticket_types"][value]["disabled"] == True:
             await interaction.response.send_message(f"❌ Currently not available.", ephemeral=True)
-            self.view.clear_items()
-            self.view.add_item(TicketMenu(self.client))
-            await interaction.message.edit(view=self.view)
             return
 
         for ticket in self.client.ticket_list.values():
             if ticket["ticket_owner"] == str(interaction.user.id):
                 await interaction.response.send_message(f"❌ You already have an open ticket.", ephemeral=True)
-                self.view.clear_items()
-                self.view.add_item(TicketMenu(self.client))
-                await interaction.message.edit(view=self.view)
                 return
             
         category = self.client.get_channel(config["categories"]["tickets"])
