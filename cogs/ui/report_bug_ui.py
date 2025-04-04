@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from discord import app_commands
 from discord import ui
 from json import load, dump
 from time import time
@@ -92,7 +91,7 @@ class BugAcceptModal(ui.Modal):
     bug_title = discord.ui.TextInput(label="Title", placeholder="Give the bug a proper title.", max_length=50, style=discord.TextStyle.short)
     bug_tag = discord.ui.TextInput(label="Tag", placeholder="Assign a tag to the bug.", max_length=25, style=discord.TextStyle.short)
     async def on_submit(self, interaction: discord.Interaction):
-        bug_tag_id = config["bug_forum_tags"].get(self.bug_tag.value.lower(), {}).get("tag_id")
+        bug_tag_id = None if self.bug_tag.value.lower() == "pending" else config["bug_forum_tags"].get(self.bug_tag.value.lower(), {}).get("tag_id")
         if not bug_tag_id: 
             await interaction.response.send_message(f"❌ Invalid tag: `{self.bug_tag.value}`.", ephemeral=True)
             return
@@ -115,7 +114,8 @@ class BugAcceptModal(ui.Modal):
 
         channel: discord.ForumChannel = interaction.guild.get_channel(config["channels"]["bug_forum"])
         tag = channel.get_tag(bug_tag_id)
-        thread = await channel.create_thread(name=self.bug_title.value, applied_tags=[tag],
+        pending = channel.get_tag(config["bug_forum_tags"]["pending"]["tag_id"])
+        thread = await channel.create_thread(name=self.bug_title.value, applied_tags=[tag, pending],
                               content=f"""**Bug Information**\n> - Location: `{tag.name}`\n> - Title `{self.bug_title.value}`\n> - User: <@{content["reported_by"]}>\n> - Reported at: <t:{content["created_at"]}:D>\n\n**Bug Description**\n```{content["content"]["description"]}```\n\n**Reproduction**\n```{content["content"]["description"]}```""")
         await thread.message.pin()
         
