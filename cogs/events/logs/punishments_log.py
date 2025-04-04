@@ -66,7 +66,7 @@ class punishments_log(commands.Cog):
             channel = after.guild.get_channel(config["channels"]["punishments_log"])
             line = discord.File("images/line.png")
             embed = discord.Embed(
-                title=f"{config["emojis"]["clock"]} Member MUTED",
+                title=f"{config["emojis"]["clock"]} MEMBER MUTED",
                 description=f"""
                 > **User Information**
                 > - Ping: <@{after.id}>
