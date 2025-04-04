@@ -76,11 +76,13 @@ class BugActionButtons(discord.ui.View):
         with open("data/bug_reports.json", 'w') as file:
             dump(self.client.bug_reports, file, indent=4)
 
+        line = discord.File("images/line.png")
         embeds = []
         for embed in interaction.message.embeds:
             embed.color = 0xda373c
+            embed.set_image(url="attachment://line.png")
             embeds.append(embed)
-        await interaction.message.edit(embeds=embeds, view=None, attachments=[])
+        await interaction.message.edit(embeds=embeds, view=None, attachments=[line])
 
 
 class BugAcceptModal(ui.Modal):
@@ -102,11 +104,13 @@ class BugAcceptModal(ui.Modal):
         with open("data/bug_reports.json", 'w') as file:
             dump(self.client.bug_reports, file, indent=4)
 
+        line = discord.File("images/line.png")
         embeds = []
         for embed in interaction.message.embeds:
             embed.color = 0x248046
+            embed.set_image(url="attachment://line.png")
             embeds.append(embed)
-        await interaction.message.edit(embeds=embeds, view=None, attachments=[])
+        await interaction.message.edit(embeds=embeds, view=None, attachments=[line])
 
 
         channel: discord.ForumChannel = interaction.guild.get_channel(config["channels"]["bug_forum"])
