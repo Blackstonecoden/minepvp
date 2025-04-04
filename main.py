@@ -7,7 +7,7 @@ from logging import WARN
 import discord
 from discord.ext import commands
 
-from cogs.buttons.report_bug import BugReportButtons, BugActionButtons
+from cogs.ui.report_bug_buttons import BugReportButtons, BugActionButtons
 
 load_dotenv()
 with open("config.json", 'r', encoding='utf-8') as file:

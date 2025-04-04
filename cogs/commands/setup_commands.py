@@ -3,7 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 from json import load
 
-from cogs.buttons.report_bug import BugReportButtons
+from cogs.ui.report_bug_buttons import BugReportButtons
 
 with open("config.json", 'r', encoding='utf-8') as file:
     config = load(file)
