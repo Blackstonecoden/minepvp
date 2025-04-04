@@ -7,7 +7,8 @@ from logging import WARN
 import discord
 from discord.ext import commands
 
-from cogs.ui.report_bug_buttons import BugReportButtons, BugActionButtons
+from cogs.ui.report_bug_ui import BugReportButtons, BugActionButtons
+from cogs.ui.ticket_ui import TicketMenuView, TicketButtons
 
 load_dotenv()
 with open("config.json", 'r', encoding='utf-8') as file:
@@ -26,6 +27,8 @@ class Client(commands.Bot):
             await self.load_extension("cogs."+cog)
 
     async def on_ready(self):
+        self.add_view(TicketMenuView(self))
+        self.add_view(TicketButtons(self))
         self.add_view(BugReportButtons(self))
         self.add_view(BugActionButtons(self))
         os.system('cls' if os.name == 'nt' else 'clear')
