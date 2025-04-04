@@ -83,7 +83,8 @@ class TicketMenu(discord.ui.Select):
             """,
             color=0x56565d)
         embed.set_image(url="attachment://line.png")
-        await ticket_channel.send(embed=embed, files=[line], view=TicketButtons(self.client))
+        message = await ticket_channel.send(embed=embed, files=[line], view=TicketButtons(self.client))
+        await message.pin()
 
         self.client.ticket_list[str(ticket_channel.id)] = {"ticket_owner": str(interaction.user.id),"created_at": int(time.time()), "ticket_type": value}
         with open("data/ticket_list.json", 'w') as file:
