@@ -13,7 +13,7 @@ class close_command(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
      
-    @app_commands.command(name="close", description="Close the current ticket")
+    @app_commands.command(name="close", description="Closes the current ticket")
     @app_commands.guild_only()
     @app_commands.default_permissions(manage_messages=True)
     async def close_ticket(self, interaction: discord.Interaction):
