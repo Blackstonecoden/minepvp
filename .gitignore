@@ -2,6 +2,7 @@ __pycache__
 .env
 config.json
 
+/fonts
 /.venv
 /data
 /testing

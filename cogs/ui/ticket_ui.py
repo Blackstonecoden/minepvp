@@ -97,7 +97,7 @@ class TicketButtons(discord.ui.View):
         self.client = client
 
     @discord.ui.button(emoji=config["emojis"]["user_plus"], custom_id="add_user_ticket", row=0)
-    async def add_user_callback(self, interaction: discord.Interaction, Button: discord.ui.Button):
+    async def add_user_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         if interaction.user.id == int(self.client.ticket_list[str(interaction.channel.id)]["ticket_owner"]) or any(role.id in config["ticket_types"][self.client.ticket_list[str(interaction.channel.id)]["ticket_type"]]["roles"] for role in interaction.user.roles) == True:
             line = discord.File("images/line.png")
             embed = discord.Embed(
@@ -114,7 +114,7 @@ class TicketButtons(discord.ui.View):
             await interaction.response.send_message("❌ You are not the creator of this ticket.", ephemeral=True)
 
     @discord.ui.button(emoji=config["emojis"]["user_minus"], custom_id="remove_user_ticket", row=0)
-    async def remove_user_callback(self, interaction: discord.Interaction, Button: discord.ui.Button):
+    async def remove_user_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         if interaction.user.id == int(self.client.ticket_list[str(interaction.channel.id)]["ticket_owner"]) or any(role.id in config["ticket_types"][self.client.ticket_list[str(interaction.channel.id)]["ticket_type"]]["roles"] for role in interaction.user.roles) == True:
             line = discord.File("images/line.png")
             embed = discord.Embed(
@@ -131,7 +131,7 @@ class TicketButtons(discord.ui.View):
             await interaction.response.send_message("❌ You are not the creator of this ticket.", ephemeral=True)
 
     @discord.ui.button(emoji=config["emojis"]["trash_red"], custom_id="close_ticket", row=0)
-    async def close_ticket_callback(self, interaction: discord.Interaction, Button: discord.ui.Button):
+    async def close_ticket_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         if  any(role.id in config["ticket_types"][self.client.ticket_list[str(interaction.channel.id)]["ticket_type"]]["roles"] for role in interaction.user.roles) == True:
             line = discord.File("images/line.png")
             embed = discord.Embed(
@@ -155,7 +155,7 @@ class CloseConfirmButtons(discord.ui.View):
         self.message = None
 
     @discord.ui.button(emoji=config["emojis"]["trash"], style=discord.ButtonStyle.red, row=0)
-    async def lock_channel_callback(self, interaction: discord.Interaction, Button: discord.ui.Button):
+    async def lock_channel_callback(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.defer()
         await interaction.channel.delete()
 
