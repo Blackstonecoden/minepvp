@@ -71,6 +71,5 @@ class join_listener(commands.Cog):
         file = discord.File(fp=buffer, filename="welcome.png")
         await channel.send(f"**Hey** <@{member.id}>", file=file, view=WelcomeButton(member))
         
-
 async def setup(client:commands.Bot) -> None:
     await client.add_cog(join_listener(client))

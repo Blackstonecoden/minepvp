@@ -1,11 +1,10 @@
-import os
-from dotenv import load_dotenv
-from json import load
-from pathlib import Path
-from logging import WARN
-
 import discord
 from discord.ext import commands
+from json import load
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+from logging import WARN
 
 from cogs.ui.report_bug_ui import BugReportButtons, BugActionButtons
 from cogs.ui.ticket_ui import TicketMenuView, TicketButtons
@@ -13,6 +12,7 @@ from cogs.ui.ticket_ui import TicketMenuView, TicketButtons
 load_dotenv()
 with open("config.json", 'r', encoding='utf-8') as file:
     config = load(file)
+
 
 class Client(commands.Bot):
     def __init__(self):
@@ -32,10 +32,10 @@ class Client(commands.Bot):
         self.add_view(TicketButtons(self))
         self.add_view(BugReportButtons(self))
         self.add_view(BugActionButtons(self))
+        await self.tree.sync()
         os.system('cls' if os.name == 'nt' else 'clear')
         print("")
-        await self.tree.sync()
-        #await client.change_presence(activity = discord.CustomActivity(name=config["custom_app_status"]))
+
 
 if __name__ == "__main__":
     client = Client()
