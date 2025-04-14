@@ -19,19 +19,22 @@ class close_command(commands.Cog):
     async def close_ticket(self, interaction: discord.Interaction):
         channel = interaction.channel
         if str(channel.id) in self.client.ticket_list:
-            line = discord.File("images/line.png")
-            embed = discord.Embed(
-                description=f"""
-                ## Close Ticket
-                Are you sure you want to close this ticket? Click the red button below if you want to close it.
-                """,
-                color=0xda373c)
-            embed.set_image(url="attachment://line.png")
-            view = CloseConfirmButtons(self.client)
-            await interaction.response.send_message(embed=embed, files=[line], view=view, ephemeral=True)
-            view.message = await interaction.original_response()
+            if any(role.id in config["ticket_types"][self.client.ticket_list[str(interaction.channel.id)]["ticket_type"]]["roles"] for role in interaction.user.roles) == True:
+                line = discord.File("images/line.png")
+                embed = discord.Embed(
+                    description=f"""
+                    ## Close Ticket
+                    Are you sure you want to close this ticket? Click the red button below if you want to close it.
+                    """,
+                    color=0xda373c)
+                embed.set_image(url="attachment://line.png")
+                view = CloseConfirmButtons(self.client)
+                await interaction.response.send_message(embed=embed, files=[line], view=view, ephemeral=True)
+                view.message = await interaction.original_response()
+            else:
+                await interaction.response.send_message("❌ You are not ticket staff.", ephemeral=True)
         else:
-            await interaction.response.send_message("❌ You are not ticket staff", ephemeral=True)
+            await interaction.response.send_message("❌ You are not in a ticket.", ephemeral=True)
 
 async def setup(client:commands.Bot) -> None:
     await client.add_cog(close_command(client))
