@@ -23,6 +23,11 @@ class Client(commands.Bot):
 
         self.cogslist = [".".join(file.relative_to("cogs").with_suffix("").parts) for file in Path("cogs").rglob("*.py") if not file.name.startswith("__")]
 
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandNotFound):
+            return
+        raise error
+
     async def setup_hook(self):
         for cog in self.cogslist:
             await self.load_extension("cogs."+cog)
