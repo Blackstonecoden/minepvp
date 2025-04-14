@@ -61,7 +61,7 @@ class join_listener(commands.Cog):
         username = member.name
         draw.text((660, 310), username, font=font1, fill=(255, 255, 255))
 
-        members = member.guild.member_count
+        members = str(member.guild.member_count)
         draw.text((877, 435), members, font=font2, fill=(255, 255, 255))
 
         buffer = BytesIO()
